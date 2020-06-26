@@ -8,3 +8,7 @@
 ``` nim
 # code comment #123
 ```
+
+``` python
+# code comment #123
+```
