@@ -8,10 +8,8 @@ on:
     - cron: '12 12 * * *'
   workflow_dispatch:
     inputs:
-      sure:
-        description: 'Are you sure?'
-        required: true
-        default: 'NO'
+      input_name:
+         
 
 jobs:
   log:
