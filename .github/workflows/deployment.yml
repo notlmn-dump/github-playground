@@ -1,0 +1,13 @@
+name: Deployment
+
+on:
+  schedule:
+    - cron: '12 12 * * *'
+  workflow_dispatch
+
+jobs:
+  log:
+  runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo "There is nothing to deploy here"
