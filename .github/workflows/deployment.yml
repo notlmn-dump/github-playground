@@ -8,13 +8,28 @@ on:
     - cron: '12 12 * * *'
   workflow_dispatch:
     inputs:
-      input_name:
-         
+      sure:
+        description: Are you sure?
+        required: true
+        default: 'no'
 
 jobs:
-  log:
+
+  manual_deploy:
+    name: "Manual"
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' && github.events.inputs.sure == 'yes'
+    steps:
+    - run: |
+        echo " Running manual deployment"
+        echo "There is nothing to deploy here"
+        echo "Input value: ${{ github.event.inputs.sure }}"
+
+  schedule_deploy:
+    name: "Scheduled"
+    if: github.event_name == 'schedule'
     runs-on: ubuntu-latest
     steps:
     - run: |
+        echo "Running scheduled deployment"
         echo "There is nothing to deploy here"
-        echo "Input value: ${{ github.event.inputs.sure }}"
