@@ -15,7 +15,7 @@ on:
 
 jobs:
   log:
-  runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
     - run: |
         echo "There is nothing to deploy here"
