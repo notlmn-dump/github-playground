@@ -18,7 +18,7 @@ jobs:
   manual_deploy:
     name: "Manual"
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' && github.events.inputs.sure == 'yes'
+    if: github.events.inputs.sure == 'yes'
     steps:
     - run: |
         echo " Running manual deployment"
