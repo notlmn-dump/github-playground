@@ -23,9 +23,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: notlmn/daily-version-action@use-actions-core
+    - uses: notlmn/daily-version-action@prefix
       name: Create tag if necessary
       id: daily-version
+      with:
+        prefix: v 
 
   Store:
     needs: Build
