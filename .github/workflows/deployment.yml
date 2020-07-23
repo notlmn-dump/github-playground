@@ -21,8 +21,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - run: npm install
-    - run: npm test # This includes the build
     - uses: notlmn/daily-version-action@use-actions-core
       name: Create tag if necessary
       id: daily-version
