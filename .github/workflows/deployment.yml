@@ -3,33 +3,34 @@ name: Deployment
 on:
   push:
     branches:
-      - master
-  schedule:
-    - cron: '12 12 * * *'
+      - $default_branch
   workflow_dispatch:
     inputs:
       sure:
         description: Are you sure?
         required: true
         default: 'no'
+    
 
 jobs:
 
-  manual_deploy:
-    name: "Manual"
+  Build:
+    outputs:
+      created: ${{ steps.daily-version.outputs.created }}
+      version: ${{ steps.daily-version.outputs.version }}
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' && github.event.inputs.sure == 'yes'
     steps:
-    - run: |
-        echo " Running manual deployment"
-        echo "There is nothing to deploy here"
-        echo "Input value: ${{ github.event.inputs.sure }}"
+    - uses: actions/checkout@v2
+    - run: npm install
+    - run: npm test # This includes the build
+    - uses: notlmn/daily-version-action@use-actions-core
+      name: Create tag if necessary
+      id: daily-version
 
-  schedule_deploy:
-    name: "Scheduled"
-    if: github.event_name == 'schedule'
-    runs-on: ubuntu-latest
+  Store:
+    needs: Build
+    if: github.event_name == 'push' || needs.Build.outputs.created
+    runs-on: ubunut-latest
     steps:
-    - run: |
-        echo "Running scheduled deployment"
-        echo "There is nothing to deploy here"
+      - run: |
+          echo "Version created ${{ needs.Build.outputs.version }}
