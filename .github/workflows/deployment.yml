@@ -28,7 +28,7 @@ jobs:
   Store:
     needs: Build
     if: github.event_name == 'push' || needs.Build.outputs.created
-    runs-on: ubunut-latest
+    runs-on: ubuntu-latest
     steps:
       - run: |
           echo "Version created ${{ needs.Build.outputs.version }}
