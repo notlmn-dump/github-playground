@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - $default_branch
+    tags:
+      - "20.*"
   workflow_dispatch:
     inputs:
       sure:
@@ -21,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: notlmn/daily-version-action@v2
+    - uses: notlmn/daily-version-action@use-actions-core
       name: Create tag if necessary
       id: daily-version
 
